@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MvcBlog.Models.Makale>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<div class="col-md-8">
+    @foreach (var item in Model)
+    {
+
+        <article class="col-md-12">
+
+
+            <!-- Blog Post -->
+            <div class="card mb-4">
+                <span class="glyphicon glyphicon-time"></span>@String.Format("{0: MMMM yyyy}", item.Tarih)
+                <h2 class="card-title">
+                    <a href="/Home/MakaleDetay/@item.MakaleId">@item.Baslik</a>
+                </h2>
+                <div class="card-body">
+                    <img class="card-img-top" src="@item.Foto" alt="@item.Baslik">
+                  
+                    <span><img class="img-circle img-responsive" width="50" src="@item.Uye.Foto" alt="@item.Uye.AdSoyad"/></span>
+                    <a href="/Uye/Index/@item.Uye.UyeId">@item.Uye.KullaniciAdi</a>
+                   
+                    @*<span class="glyphicon glyphicon-tags"></span>@item.Etikets.Count()
+
+                    <hr>
+                    <img class="img-responsive" src="@item.Foto" alt="@item.Baslik" />
+                    <hr>*@
+
+
+
+
+                        @if (item.Icerik.Length > 150)
+                        {
+                            <p>
+                                @Html.Raw(item.Icerik.Substring(0, 150))...
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                @Html.Raw(item.Icerik)...
+                            </p>
+                        }
+                        <a href="/Home/MakaleDetay/@item.MakaleId" class="btn btn-primary">Devamını Oku &rarr;</a>
+</div>
+                <div class="card-footer text-muted">
+                    Yazar @item.Uye.KullaniciAdi
+                    <a href="/Uye/Index/@item.Uye.UyeId">@item.Uye.KullaniciAdi</a>
+                </div>
+            </div>
+        </article>
+    }
+</div>
